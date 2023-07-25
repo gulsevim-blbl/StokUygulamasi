@@ -38,6 +38,7 @@ public class StokUygulamasi extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         urun_tablosu = new javax.swing.JTable();
         ekle_butonu = new javax.swing.JButton();
+        güncelle_butonu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,14 +72,23 @@ public class StokUygulamasi extends javax.swing.JFrame {
             }
         });
 
+        güncelle_butonu.setText("Ürün Güncelle");
+        güncelle_butonu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                güncelle_butonuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(82, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(mesaj_yazısı, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -93,8 +103,9 @@ public class StokUygulamasi extends javax.swing.JFrame {
                                     .addComponent(cb_Kategori, 0, 162, Short.MAX_VALUE)
                                     .addComponent(tf_fiyat))))
                         .addGap(180, 180, 180)
-                        .addComponent(ekle_butonu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ekle_butonu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(güncelle_butonu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +122,8 @@ public class StokUygulamasi extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_fiyat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_fiyat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(güncelle_butonu))
                 .addGap(18, 18, 18)
                 .addComponent(mesaj_yazısı, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -138,10 +150,41 @@ public class StokUygulamasi extends javax.swing.JFrame {
             
             model.addRow(eklenecek);
             
+           
         }
         
         
     }//GEN-LAST:event_ekle_butonuActionPerformed
+
+    private void güncelle_butonuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_güncelle_butonuActionPerformed
+        
+        mesaj_yazısı.setText("");
+        
+        DefaultTableModel model = (DefaultTableModel) urun_tablosu.getModel();
+        
+        int secili_row = urun_tablosu.getSelectedRow();
+        
+        if(secili_row == -1){
+            
+            if (urun_tablosu.getRowCount() == 0) {
+                
+                mesaj_yazısı.setText("urun tablosu su anda bos ....");
+            }else{
+                
+                mesaj_yazısı.setText("Lutfen Güncellenecek bir urun secin...");
+            }
+        }else{
+            
+            model.setValueAt(tf_urun_ismi.getText(), secili_row, 0);
+            
+            model.setValueAt(cb_Kategori.getSelectedItem().toString(), secili_row ,1);
+        
+            model.setValueAt(tf_fiyat.getText(),secili_row,2);
+             
+             
+             mesaj_yazısı.setText("Urun Basariyla Güncellendi...");
+        }
+    }//GEN-LAST:event_güncelle_butonuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +224,7 @@ public class StokUygulamasi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cb_Kategori;
     private javax.swing.JButton ekle_butonu;
+    private javax.swing.JButton güncelle_butonu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -190,4 +234,8 @@ public class StokUygulamasi extends javax.swing.JFrame {
     private javax.swing.JTextField tf_urun_ismi;
     private javax.swing.JTable urun_tablosu;
     // End of variables declaration//GEN-END:variables
+
+    private int secili_row(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
